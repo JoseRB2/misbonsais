@@ -3,136 +3,744 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MisBonsais - Herramienta para gestionar tu colección de bonsáis y aprender sobre sus cuidados.">
-    <title>MisBonsais - Gestiona tu Colección</title>
-    <link rel="stylesheet" href="style.css">
+    <title>misBonsais.com - Herramienta de gestión y cuidado de bonsais</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--dark);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Archivo', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        
+        .bonsai-card {
+            background-image: url('home.png?w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 24px;
+        }
+        
+        .dashboard-card {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .panel-title {
+            color: var(--dark);
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 12px 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .pricing-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .faq-item {
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (max-width: 640px) {
+            .mobile-stack {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2LG3MBB89J"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-2LG3MBB89J');
-</script>
-<body>
-
-    <header>
-        <div class="container">
-            <a href="index.html">
-                <img src="logo-web.png" alt="Logo MisBonsais" class="logo">
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="#hero">Inicio</a></li>
-                    <li><a href="#features">Características</a></li>
-                    <li><a href="#varieties">Variedades</a></li>
-                    <li><a href="#contact">Contacto (Próximamente)</a></li>
-                </ul>
-            </nav>
+<body class="bg-gray-50">
+    <!-- Header/Navbar -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-tree text-2xl"></i>
+                    <h1 class="text-2xl font-bold">misBonsais.com</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="hover:text-gray-200 transition-all font-medium">Inicio</a>
+                    <a href="#caracteristicas" class="hover:text-gray-200 transition-all font-medium">Características</a>
+                    <a href="#contacto" class="hover:text-gray-200 transition-all font-medium">Contacto</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2">
+                <a href="#inicio" class="block py-2 hover:bg-white hover:bg-opacity-20 px-2 rounded">Inicio</a>
+                <a href="#caracteristicas" class="block py-2 hover:bg-white hover:bg-opacity-20 px-2 rounded">Características</a>
+                <a href="#contacto" class="block py-2 hover:bg-white hover:bg-opacity-20 px-2 rounded">Contacto</a>
+            </div>
         </div>
     </header>
 
-    <section id="hero">
-        <div class="container">
-            <h1>Gestiona tu colección de bonsáis fácilmente</h1>
-            <p>MisBonsais es la herramienta definitiva para aficionados, permitiéndote llevar un inventario detallado, programar tareas y aprender sobre tus árboles.</p>
-            <a href="#features" class="cta-button">Descubre Más</a>
-        </div>
-    </section>
-
-    <section id="features" class="section-bg">
-        <div class="container">
-            <h2>¿Qué ofrece MisBonsais?</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="feature-icon">
-                        <path d="M6 1v3H1V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm14 12v3h-5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM6 8v7H1V8zm-1 8a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1zm14-8v7h-5V8zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1z"/>
-                    </svg>
-                    <h3>Inventario Completo</h3>
-                    <p>Registra cada bonsái con fotos, fechas importantes, origen y notas.</p>
+    <!-- Hero Section -->
+    <section id="inicio" class="gradient-bg text-white py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">La herramienta definitiva para amantes del bonsái</h2>
+                    <p class="text-xl mb-8 opacity-90">Registra, gestiona y cuida de tus bonsáis como un profesional con nuestro sistema especializado.</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#registro" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-center transition-all shadow-lg">Regístrate Gratis</a>
+                        <a href="#demo" class="border-2 border-white text-white hover:bg-white hover:bg-opacity-20 px-6 py-3 rounded-lg font-semibold text-center transition-all shadow-lg">Ver Demo</a>
+                    </div>
                 </div>
-                <div class="feature-item">
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="feature-icon">
-                        <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
-                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                    </svg>
-                    <h3>Gestión de Tareas</h3>
-                    <p>Planifica riegos, abonados, trasplantes y podas con recordatorios.</p>
-                </div>
-                <div class="feature-item">
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="feature-icon">
-                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811z"/>
-                    </svg>
-                    <h3>Consulta y Aprendizaje</h3>
-                    <p>Accede a información sobre especies y técnicas de cuidado.</p>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <div class="bonsai-card rounded-xl shadow-2xl h-80 w-full dashboard-card flex items-center justify-center">
+                            <div class="text-center p-6">
+                                <h3 class="panel-title mb-2">Panel de Control</h3>
+                                <h4 class="text-gray-700 mb-4 font-medium">Gestiona todos tus bonsáis en un solo lugar</h4>
+                                <div class="flex justify-center space-x-4">
+                                    <div class="text-center">
+                                        <div class="bg-green-100 text-green-800 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                                            <i class="fas fa-tree"></i>
+                                        </div>
+                                        <span class="text-sm font-medium">+25 bonsáis</span>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="bg-blue-100 text-blue-800 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <span class="text-sm font-medium">Recordatorios</span>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="bg-yellow-100 text-yellow-800 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                                            <i class="fas fa-chart-line"></i>
+                                        </div>
+                                        <span class="text-sm font-medium">Progreso</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="varieties">
-        <div class="container">
-            <h2>Variedades Populares para Bonsái</h2>
-            <p>Descubre algunas de las especies más apreciadas en el mundo del bonsái.</p>
-            <div class="variety-cards">
-                <div class="card">
-                    <img src="images/pino.jpg" alt="Bonsái de Pino Negro Japonés">
-                    <div class="card-body">
-                        <h3>Pino Negro Japonés (Pinus thunbergii)</h3>
-                        <p>Resistente y con carácter, ideal para estilos formales e informales.</p>
-                        <a href="https://es.wikipedia.org/wiki/Pinus_thunbergii" target="_blank" class="card-link">Saber más</a>
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-blue-600 font-semibold">CARACTERÍSTICAS</span>
+                <h2 class="text-3xl font-bold mt-2">Funcionalidades diseñadas para tus bonsáis</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition-all card-hover">
+                    <div class="feature-icon">
+                        <i class="fas fa-clipboard-list"></i>
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">Registro Detallado</h3>
+                    <p class="text-gray-600">Documenta cada aspecto de tus bonsáis: especie, edad, fecha de adquisición, trasplantes, podas y más.</p>
                 </div>
-
-                <div class="card">
-                    <img src="images/arce.jpg" alt="Bonsái de Arce Palmatum">
-                    <div class="card-body">
-                        <h3>Arce Japonés (Acer palmatum)</h3>
-                        <p>Famoso por sus espectaculares colores otoñales y delicadas hojas.</p>
-                        <a href="https://es.wikipedia.org/wiki/Acer_palmatum" target="_blank" class="card-link">Saber más</a>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition-all card-hover">
+                    <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--secondary);">
+                        <i class="fas fa-bell"></i>
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">Recordatorios Inteligentes</h3>
+                    <p class="text-gray-600">Nunca olvides cuándo regar, abonar o podar tus bonsáis con nuestro sistema de alertas personalizado.</p>
                 </div>
-
-                <div class="card">
-                    <img src="images/olivo.jpg" alt="Bonsái de Olivo">
-                    <div class="card-body">
-                        <h3>Olivo (Olea europaea)</h3>
-                        <p>Árbol mediterráneo muy longevo, apreciado por su tronco rugoso.</p>
-                        <a href="https://es.wikipedia.org/wiki/Olea_europaea" target="_blank" class="card-link">Saber más</a>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition-all card-hover">
+                    <div class="feature-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent);">
+                        <i class="fas fa-images"></i>
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">Galería de Progreso</h3>
+                    <p class="text-gray-600">Sube fotos periódicas para crear un historial visual del desarrollo de cada bonsái a lo largo del tiempo.</p>
                 </div>
-
-                 <div class="card">
-                    <img src="images/ficus.jpg" alt="Bonsái de Ficus Retusa">
-                    <div class="card-body">
-                        <h3>Ficus (Ficus retusa/microcarpa)</h3>
-                        <p>Ideal para principiantes, muy adaptable y de crecimiento rápido.</p>
-                        <a href="https://es.wikipedia.org/wiki/Ficus_retusa" target="_blank" class="card-link">Saber más</a>
-                    </div>
-                </div>
-                 </div>
+            </div>
         </div>
     </section>
 
-    <section id="contact" class="section-bg">
-         <div class="container">
-            <h2>Contacto</h2>
-            <p>¿Interesado en MisBonsais? ¡Próximamente podrás registrarte o contactarnos!</p>
+    <!-- Tool Preview Section -->
+    <section id="caracteristicas" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <div class="flex border-b pb-4 mb-6">
+                            <button class="font-medium text-blue-600 border-b-2 border-blue-600 pb-2 px-4">Mis Bonsáis</button>
+                            <button class="font-medium text-gray-500 px-4">Calendario</button>
+                            <button class="font-medium text-gray-500 px-4">Estadísticas</button>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-4 bg-blue-50 rounded-lg">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-tree text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Ficus Retusa</h4>
+                                    <p class="text-sm text-gray-500">Próximo riego: hoy</p>
+                                </div>
+                                <div class="ml-auto text-blue-600">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-4 bg-white border border-gray-100 rounded-lg">
+                                <div class="bg-green-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-tree text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Juniperus</h4>
+                                    <p class="text-sm text-gray-500">Poda en 3 días</p>
+                                </div>
+                                <div class="ml-auto text-gray-400">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-4 bg-white border border-gray-100 rounded-lg">
+                                <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-tree text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Acer Palmatum</h4>
+                                    <p class="text-sm text-gray-500">Abonar en 5 días</p>
+                                </div>
+                                <div class="ml-auto text-gray-400">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-4 bg-white border border-gray-100 rounded-lg">
+                                <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-tree text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Pinus Thunbergii</h4>
+                                    <p class="text-sm text-gray-500">Trasplante en 2 semanas</p>
+                                </div>
+                                <div class="ml-auto text-gray-400">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-all shadow-md">
+                            <i class="fas fa-plus mr-2"></i> Añadir nuevo bonsái
+                        </button>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="text-blue-600 font-semibold">GESTIÓN INTEGRAL</span>
+                    <h3 class="text-3xl font-bold mt-2 mb-4">Control total sobre tu colección</h3>
+                    <p class="text-gray-600 mb-6">Nuestra herramienta está diseñada específicamente para satisfacer las necesidades de los entusiastas del bonsái. Con un enfoque en la simplicidad y la funcionalidad, te ayudamos a mantener un registro completo de cada ejemplar en tu colección.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-600 p-1 rounded-full mr-3 mt-1">
+                                <i class="fas fa-check text-xs"></i>
+                            </div>
+                            <span class="text-gray-700">Seguimiento del historial de cuidados para cada bonsái</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-600 p-1 rounded-full mr-3 mt-1">
+                                <i class="fas fa-check text-xs"></i>
+                            </div>
+                            <span class="text-gray-700">Recomendaciones personalizadas según especie y estación</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-600 p-1 rounded-full mr-3 mt-1">
+                                <i class="fas fa-check text-xs"></i>
+                            </div>
+                            <span class="text-gray-700">Base de datos de especies con información de cuidados</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 text-blue-600 p-1 rounded-full mr-3 mt-1">
+                                <i class="fas fa-check text-xs"></i>
+                            </div>
+                            <span class="text-gray-700">Sincronización entre dispositivos para acceso en cualquier momento</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 MisBonsais. Todos los derechos reservados.</p>
-            <p>Diseñado con ❤️ para los amantes del bonsái</p>
+    <!-- Testimonials -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-blue-600 font-semibold">TESTIMONIOS</span>
+                <h2 class="text-3xl font-bold mt-2">Lo que dicen nuestros usuarios</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Desde que uso misBonsais.com he mejorado mucho en el cuidado de mis árboles. Los recordatorios son exactamente lo que necesitaba."</p>
+                    <div class="flex items-center">
+                        <div class="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">Carlos M.</h4>
+                            <p class="text-sm text-gray-500">Aficionado desde 2015</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"La galería de progreso me permite ver la evolución de mis bonsáis mes a mes. ¡Es increíble poder comparar cómo han crecido!"</p>
+                    <div class="flex items-center">
+                        <div class="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">Ana L.</h4>
+                            <p class="text-sm text-gray-500">Coleccionista</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Como profesional, valoro mucho la posibilidad de gestionar múltiples clientes y sus colecciones desde una sola plataforma."</p>
+                    <div class="flex items-center">
+                        <div class="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">David R.</h4>
+                            <p class="text-sm text-gray-500">Vivero Bonsái Oriental</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="registro" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-blue-600 font-semibold">PLANES</span>
+                <h2 class="text-3xl font-bold mt-2">Elige tu plan</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Empieza gratis y actualiza cuando necesites más funciones</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Free Plan **Eliminado 
+                <div class="pricing-card bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-2">Básico</h3>
+                    <p class="text-gray-600 mb-6">Perfecto para empezar</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">Gratis</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Hasta 5 bonsáis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Recordatorios básicos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Galería con 3 fotos por bonsái</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-gray-300 mr-2 mt-1">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <span class="text-gray-400">Estadísticas avanzadas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-gray-300 mr-2 mt-1">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <span class="text-gray-400">Soporte prioritario</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg font-medium transition-all">
+                        Empezar ahora
+                    </button>
+                </div>
+				-->
+                
+                <!-- Premium Plan *eliminado 
+                <div class="pricing-card bg-white p-8 rounded-xl shadow-lg border-2 border-blue-500 relative">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                        POPULAR
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Premium</h3>
+                    <p class="text-gray-600 mb-6">Para coleccionistas serios</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">€4.99</span>
+                        <span class="text-gray-600">/mes</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Bonsáis ilimitados</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Recordatorios avanzados</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Galería con 50 fotos por bonsái</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Estadísticas avanzadas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Soporte prioritario</span>
+                        </li>
+                    </ul>
+                    <button class="w-full gradient-bg hover:opacity-90 text-white py-3 rounded-lg font-medium transition-all shadow-md">
+                        Elegir Premium
+                    </button>
+                </div>  -->
+                
+                <!-- Professional Plan **eliminado
+                <div class="pricing-card bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-2">Profesional</h3>
+                    <p class="text-gray-600 mb-6">Para viveros y expertos</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">€9.99</span>
+                        <span class="text-gray-600">/mes</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Todo en Premium</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Gestión de múltiples clientes</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Galería ilimitada</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Informes personalizados</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="text-green-500 mr-2 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Soporte 24/7</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg font-medium transition-all">
+                        Elegir Profesional
+                    </button>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <div class="text-center mb-12">
+                <span class="text-blue-600 font-semibold">FAQ</span>
+                <h2 class="text-3xl font-bold mt-2">Preguntas Frecuentes</h2>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <button class="faq-btn w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-all">
+                        <span class="text-left font-medium">¿Puedo cambiar de plan más tarde?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden p-4 border-t border-gray-200">
+                        <p class="text-gray-600">Sí, puedes cambiar entre planes en cualquier momento desde la sección de configuración de tu cuenta. Los cambios se aplicarán inmediatamente y se ajustará el prorrateo del costo.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <button class="faq-btn w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-all">
+                        <span class="text-left font-medium">¿Cómo funcionan los recordatorios?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden p-4 border-t border-gray-200">
+                        <p class="text-gray-600">Nuestro sistema analiza la especie de cada bonsái, su ubicación y las condiciones actuales para generar recordatorios personalizados de riego, poda, abonado y trasplante. Puedes recibir notificaciones por email o en la app.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <button class="faq-btn w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-all">
+                        <span class="text-left font-medium">¿Se sincroniza entre varios dispositivos?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden p-4 border-t border-gray-200">
+                        <p class="text-gray-600">Sí, todos tus datos se sincronizan en la nube. Puedes acceder a tu cuenta desde cualquier dispositivo con conexión a internet y ver la información actualizada de tus bonsáis.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <button class="faq-btn w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-all">
+                        <span class="text-left font-medium">¿Qué pasa si me olvido de registrar un cuidado?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-content hidden p-4 border-t border-gray-200">
+                        <p class="text-gray-600">Nuestro sistema es flexible y te permite registrar cuidados pasados. Además, si detecta que un cuidado no fue registrado, te preguntará si lo realizaste para mantener tu historial actualizado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 gradient-bg text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">¿Listo para llevar tu pasión por los bonsáis al siguiente nivel?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">Regístrate ahora y comienza a gestionar tu colección como un profesional.</p>
+            <button class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold text-lg transition-all shadow-lg">
+                Comenzar Gratis <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-tree text-2xl"></i>
+                        <h3 class="text-xl font-bold">misBonsais.com</h3>
+                    </div>
+                    <p class="text-gray-400">La herramienta definitiva para amantes y profesionales del bonsái.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Enlaces</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Inicio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Características</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Términos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Privacidad</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Cookies</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contacto</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-gray-400"></i>
+                            <span class="text-gray-400">info@misBonsais.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2 text-gray-400"></i>
+                            <span class="text-gray-400">+34 123 456 789</span>
+                        </li>
+                        <li class="flex items-center mt-4 space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-youtube"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+                <p>&copy; 2025 misBonsais.com. Todos los derechos reservados.</p>
+            </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                // Toggle content
+                content.classList.toggle('hidden');
+                
+                // Toggle icon
+                if (content.classList.contains('hidden')) {
+                    icon.classList.remove('rotate-180');
+                } else {
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
